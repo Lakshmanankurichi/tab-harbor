@@ -14,11 +14,15 @@ export default function EmptyState({ hasSearch }: { hasSearch?: boolean }) {
       {/* Animated harbor scene */}
       <div className="relative mb-8 w-24 h-24 flex items-center justify-center">
         <div className="absolute inset-0 rounded-full bg-cyan-500/5 border border-cyan-500/10" />
-        <div className="absolute inset-2 rounded-full bg-cyan-500/5 animate-ping opacity-30" />
-        <span
-          className="text-5xl relative z-10"
+        <div className="absolute inset-2 rounded-full bg-cyan-500/5 animate-ping opacity-25" />
+        <img
+          src="/anchor.svg"
+          alt="Tab Harbor"
+          width={52}
+          height={52}
+          className="relative z-10 rounded-xl"
           style={{ animation: 'anchor-pulse 3s ease-in-out infinite' }}
-        >⚓</span>
+        />
       </div>
 
       {/* Wave bars */}
