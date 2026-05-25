@@ -9,6 +9,7 @@
     "activeTab"
   ],
   "host_permissions": [
+    "https://tab-harbor-two.vercel.app/*",
     "http://localhost:3002/*"
   ],
   "action": {

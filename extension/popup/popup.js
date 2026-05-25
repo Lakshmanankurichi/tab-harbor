@@ -1,4 +1,5 @@
-const DASHBOARD_URL = 'http://localhost:3002';
+const DASHBOARD_URL = 'https://tab-harbor-two.vercel.app';
+// const DASHBOARD_URL = 'http://localhost:3002'; // dev
 const API_BASE = `${DASHBOARD_URL}/api`;
 
 document.addEventListener('DOMContentLoaded', async () => {
