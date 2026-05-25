@@ -62,10 +62,10 @@ export default function Home() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-7 animate-fade-up">
         <div>
-          <h1 className="text-2xl font-bold text-white">Your Harbored Sessions</h1>
-          <p className="text-slate-400 text-sm mt-0.5">
+          <h1 className="text-2xl font-bold text-white tracking-tight">Your Harbored Sessions</h1>
+          <p className="text-slate-600 text-sm mt-1">
             {sessions.length} session{sessions.length !== 1 ? 's' : ''} saved
           </p>
         </div>

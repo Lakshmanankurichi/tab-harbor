@@ -4,35 +4,79 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tab Harbor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
   <div id="app">
+
     <header>
-      <div class="logo">⚓</div>
+      <div class="harbor-scene" aria-hidden="true">
+        <div class="water">
+          <div class="wave w1"></div>
+          <div class="wave w2"></div>
+          <div class="wave w3"></div>
+        </div>
+        <div class="boat">⛵</div>
+      </div>
       <div class="brand">
-        <h1>Tab Harbor</h1>
+        <div class="logo-row">
+          <span class="anchor">⚓</span>
+          <h1>Tab Harbor</h1>
+        </div>
         <p class="tagline">Your tabs, finally organized.</p>
       </div>
     </header>
 
     <main>
-      <div class="tab-preview">
-        <span id="tab-count" class="tab-count">Counting tabs...</span>
+
+      <div class="count-card">
+        <span id="tab-count" class="count-num">—</span>
+        <span class="count-label">tabs ready to harbor</span>
+      </div>
+
+      <div class="input-wrap">
+        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5"/>
+          <path d="M15.5 3.5a2.121 2.121 0 013 3L12 13l-4 1 1-4 6.5-6.5z"/>
+        </svg>
+        <input
+          id="session-name"
+          type="text"
+          placeholder="Name this session… (or let AI decide)"
+          maxlength="60"
+          autocomplete="off"
+          spellcheck="false"
+        />
       </div>
 
       <button id="harbor-btn" class="harbor-btn" disabled>
-        ⚓ Harbor All Tabs
+        <svg class="btn-icon" id="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+        <span id="btn-text">Harbor All Tabs</span>
       </button>
 
       <div id="status" class="status hidden"></div>
+
     </main>
 
     <footer>
-      <a id="dashboard-link" href="#" target="_blank" class="dashboard-link">
-        Open Dashboard →
+      <a id="dashboard-link" href="#" target="_blank" class="dash-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        Open Dashboard
+        <svg class="dash-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
       </a>
     </footer>
+
   </div>
 
   <script src="../utils/uuid.js"></script>

@@ -5,14 +5,15 @@ import type { CreateSessionPayload } from '@/lib/types';
 
 export async function POST(req: NextRequest) {
   try {
-    const body: CreateSessionPayload = await req.json();
-    const { deviceUUID, tabs } = body;
+    const body: CreateSessionPayload & { customName?: string } = await req.json();
+    const { deviceUUID, tabs, customName } = body;
 
     if (!deviceUUID || !tabs || tabs.length === 0) {
       return NextResponse.json({ error: 'Missing deviceUUID or tabs' }, { status: 400 });
     }
 
-    const { title, tags } = await generateSessionMeta(tabs);
+    const { title: aiTitle, tags } = await generateSessionMeta(tabs);
+    const title = customName?.trim() || aiTitle;
 
     const { data: session, error: sessionError } = await supabase
       .from('sessions')

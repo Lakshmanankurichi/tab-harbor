@@ -4,9 +4,12 @@ const API_BASE = `${DASHBOARD_URL}/api`;
 
 document.addEventListener('DOMContentLoaded', async () => {
   const harborBtn   = document.getElementById('harbor-btn');
+  const btnText     = document.getElementById('btn-text');
+  const btnIcon     = document.getElementById('btn-icon');
   const tabCountEl  = document.getElementById('tab-count');
   const statusEl    = document.getElementById('status');
   const dashLink    = document.getElementById('dashboard-link');
+  const nameInput   = document.getElementById('session-name');
 
   const deviceUUID = await getOrCreateDeviceUUID();
   dashLink.href = `${DASHBOARD_URL}?deviceUUID=${deviceUUID}`;
@@ -16,13 +19,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     (t) => t.url && !t.url.startsWith('chrome://') && !t.url.startsWith('chrome-extension://')
   );
 
-  const count = validTabs.length;
-  tabCountEl.innerHTML = `<strong>${count}</strong>${count === 1 ? 'tab' : 'tabs'} ready to harbor`;
-  harborBtn.disabled = count === 0;
+  tabCountEl.textContent = validTabs.length;
+  harborBtn.disabled = validTabs.length === 0;
 
   harborBtn.addEventListener('click', async () => {
+    const customName = nameInput.value.trim();
     harborBtn.disabled = true;
-    showStatus('Harboring tabs...', 'loading');
+    harborBtn.classList.add('loading');
+    btnText.textContent = 'Harboring…';
+    showStatus('Saving your tabs…', 'loading');
 
     try {
       const tabData = validTabs.map((t, i) => ({
@@ -32,22 +37,28 @@ document.addEventListener('DOMContentLoaded', async () => {
         position:    i,
       }));
 
+      const body = { deviceUUID, tabs: tabData };
+      if (customName) body.customName = customName;
+
       const res = await fetch(`${API_BASE}/sessions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ deviceUUID, tabs: tabData }),
+        body: JSON.stringify(body),
       });
 
       if (!res.ok) throw new Error(`Server error: ${res.status}`);
       const session = await res.json();
 
-      showStatus(`✓ Harbored as "${session.title}"`, 'success');
+      harborBtn.classList.remove('loading');
+      showStatus(`⚓  Harbored as "${session.title}"`, 'success');
       setTimeout(() => {
         chrome.tabs.create({ url: `${DASHBOARD_URL}?deviceUUID=${deviceUUID}` });
-      }, 1500);
+      }, 1800);
     } catch (err) {
-      showStatus(`Error: ${err.message}`, 'error');
+      harborBtn.classList.remove('loading');
       harborBtn.disabled = false;
+      btnText.textContent = 'Harbor All Tabs';
+      showStatus(`Failed: ${err.message}`, 'error');
     }
   });
 
