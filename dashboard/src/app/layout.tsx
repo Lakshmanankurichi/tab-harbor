@@ -25,6 +25,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="max-w-5xl mx-auto px-6 py-8">
           {children}
         </main>
+        <footer className="border-t border-white/[0.04] mt-8 py-5">
+          <div className="max-w-5xl mx-auto px-6 flex items-center justify-between text-[11px] text-slate-700">
+            <span>
+              Built by{' '}
+              <a
+                href="https://github.com/Lakshmanankurichi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-500 hover:text-cyan-400 transition-colors duration-150"
+              >
+                lakshmanankurichi
+              </a>
+            </span>
+            <span className="flex items-center gap-1.5">
+              Designed by
+              <span className="text-slate-500 font-medium">Claude</span>
+              <span className="text-slate-800">·</span>
+              <span className="text-slate-800">Anthropic</span>
+            </span>
+          </div>
+        </footer>
       </body>
     </html>
   );
