@@ -36,7 +36,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(session, { status: 201 });
   } catch (err) {
     console.error('[POST /api/sessions]', err);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    const detail = err instanceof Error ? err.message : JSON.stringify(err);
+    return NextResponse.json({ error: 'Internal server error', detail }, { status: 500 });
   }
 }
 
